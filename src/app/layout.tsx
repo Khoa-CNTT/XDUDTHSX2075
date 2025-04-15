@@ -1,7 +1,8 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import type { Metadata } from "next";
- import { ClerkProvider } from '@clerk/nextjs'; 
+import { ClerkProvider } from '@clerk/nextjs'; 
+import { ThemeProvider } from 'next-themes';
 
  const inter = Inter({ subsets: ['latin'] });
 
@@ -15,10 +16,19 @@ import type { Metadata } from "next";
   children: React.ReactNode;
  }>){
   return (
-    <html lang="en">
-      <ClerkProvider>
-        <body className={inter.className}>{children}</body>
-      </ClerkProvider>
+    <ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+        attribute={"class"}
+        defaultTheme='system'
+        enableSystem
+        disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
+    </ClerkProvider>
   );
  }
