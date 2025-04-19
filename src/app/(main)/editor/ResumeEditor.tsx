@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import GeneralInfoForm from "./forms/GeneralInfoForm"
 
 export default function ResumeEditor() {
     return <div className="flex grow flex-col">
@@ -11,8 +12,8 @@ export default function ResumeEditor() {
         </header>
         <main className="relative grow">
             <div className="absolute bottom-0 top-0 flex w-full">
-                <div className="w-full md:w-1/2">
-                    
+                <div className="w-full md:w-1/2 p-3">
+                    <GeneralInfoForm />
                 </div>
                 <div className="grow md:border-r"/>
                 <div className="hidden w-1/2 md:flex">
