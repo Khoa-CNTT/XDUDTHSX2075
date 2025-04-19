@@ -37,7 +37,6 @@ export default function PersonalInfoForm() {
                 <FormField
                     control={form.control}
                     name="photo"
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     render={({ field: {value, ...fieldValues} }) => (
                         <FormItem>
                             <FormLabel>Ảnh đại diện</FormLabel>
@@ -72,13 +71,93 @@ export default function PersonalInfoForm() {
                             <FormItem>
                                 <FormLabel>Họ</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Nguyễn" {...field} autoFocus/>
+                                    <Input {...field}/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Tên</FormLabel>
+                                <FormControl>
+                                    <Input {...field}/>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                 </div>
+                    <FormField
+                        control={form.control}
+                        name="jobTitle"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Chức danh công việc</FormLabel>
+                                <FormControl>
+                                    <Input {...field}/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <div className="grid grid-cols-2 gap-3">
+                    <FormField
+                        control={form.control}
+                        name="city"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Thành phố</FormLabel>
+                                <FormControl>
+                                    <Input {...field}/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="country"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Quốc gia</FormLabel>
+                                <FormControl>
+                                    <Input {...field}/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                    <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Số điện thoại</FormLabel>
+                                <FormControl>
+                                    <Input {...field} type="tel"/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input {...field} type="email"/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
             </form>
         </Form>
     </div>
