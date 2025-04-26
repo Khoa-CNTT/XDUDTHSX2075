@@ -1,31 +1,23 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { EditorFormProps } from "@/lib/types"
 import { personalInfoSchema, PersonalInfoSchema } from "@/lib/validation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
-export default function PersonalInfoForm() {
+export default function PersonalInfoForm({resumeData, setResumeData}: EditorFormProps) {
     const form = useForm<PersonalInfoSchema>({
         resolver: zodResolver(personalInfoSchema),
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            jobTitle: "",
-            city: "",
-            country: "",
-            phone: "",
-            email: "",
+            firstName: resumeData.firstName || "",
+            lastName: resumeData.lastName || "",
+            jobTitle: resumeData.jobTitle || "",
+            city: resumeData.city || "",
+            country: resumeData.country || "",
+            phone: resumeData.phone || "",
+            email: resumeData.email || "",
         }
     })
-
-    useEffect(() => {
-        const { unsubscribe } = form.watch(async () => {
-          const isValid = await form.trigger();
-          if (!isValid) return;
-        });
-        return unsubscribe;
-      }, [form]);
 
     return <div className="max-w-xl mx-auto space-y-6">
         <div className="space-y-1.5 text-center">

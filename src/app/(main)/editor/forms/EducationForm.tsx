@@ -1,37 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FormField, FormItem, FormControl, FormLabel, Form } from "@/components/ui/form";
 import { EditorFormProps } from "@/lib/types";
-import { workExperienceSchema, WorkExperienceValues } from "@/lib/validation";
+import { Input } from "@/components/ui/input";
+import { educationSchema, EducationValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GripHorizontal } from "lucide-react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 
-export default function WorkExperienceForm({resumeData, setResumeData}: EditorFormProps) {
-    const form = useForm<WorkExperienceValues>({
-        resolver: zodResolver(workExperienceSchema),
+export default function EducationForm({resumeData, setResumeData}: EditorFormProps) {
+    const form = useForm<EducationValues>({
+    resolver: zodResolver(educationSchema),
         defaultValues: {
-            workExperiences: resumeData.workExperiences || [],
+            educations: resumeData.educations || []
         }
     })
 
     const {fields, append, remove} = useFieldArray({
         control: form.control,
-        name: "workExperiences",
+        name: "educations",
     })
 
     return <div className="max-w-xl mx-auto space-y-6">
         <div className="space-y-1.5 text-center">
             <h2 className="text-2xl font-semibold">Kinh nghiệm làm việc</h2>
             <p className="text-sm text-muted-foreground">
-                Thêm thông tin về kinh nghiệm làm việc của bạn để nhà tuyển dụng hiểu rõ hơn về bạn.
+                Thêm thông tin về học vấn của bạn để nhà tuyển dụng hiểu rõ hơn về bạn.
             </p>
         </div>
         <Form {...form}>
             <form className="space-y-3">
                 {fields.map((field, index) => (
-                    <WorkExperienceItem 
+                    <EducationItem 
                     key={field.id}
                     index={index}
                     form={form}
@@ -40,11 +39,10 @@ export default function WorkExperienceForm({resumeData, setResumeData}: EditorFo
                 ))}
                 <div className="flex justify-center">
                     <Button type="button" onClick={() => append({
-                        position: "",
-                        company: "",
+                        degree: "",
+                        school: "",
                         startDate: "",
                         endDate: "",
-                        description: "",
                     })}>
                         Thêm kinh nghiệm làm việc
                     </Button>
@@ -54,46 +52,46 @@ export default function WorkExperienceForm({resumeData, setResumeData}: EditorFo
     </div>
 }
 
-interface WorkExperienceItemProps {
-    form: UseFormReturn<WorkExperienceValues>;
+interface EducaionItemProps {
+    form: UseFormReturn<EducationValues>;
     index: number;
     remove: (index: number) => void;
 }
 
-function WorkExperienceItem({form, index, remove}: WorkExperienceItemProps) {
+function EducationItem({form, index, remove}: EducaionItemProps) {
     return <div className="space-y-3 border rounded-md bg-background">
         <div className="flex justify-between gap-2">
-            <span className="font-semibold">Kinh nghiệm công việc {index + 1}</span>
+            <span className="font-semibold">Học vấn {index + 1}</span>
             <GripHorizontal className="size-5 cursor-grab text-muted-foreground" />
         </div>
-        <FormField 
+        <FormField
         control={form.control}
-        name={`workExperiences.${index}.position`}
+        name={`educations.${index}.degree`}
         render={({field}) => (
             <FormItem>
-                <FormLabel>Chức vụ công việc</FormLabel>
+                <FormLabel>Bằng cấp</FormLabel>
                 <FormControl>
                     <Input {...field} autoFocus />
                 </FormControl>
             </FormItem>
         )}
         />
-        <FormField 
+        <FormField
         control={form.control}
-        name={`workExperiences.${index}.company`}
+        name={`educations.${index}.school`}
         render={({field}) => (
             <FormItem>
-                <FormLabel>Tên công ty</FormLabel>
+                <FormLabel>Trường học</FormLabel>
                 <FormControl>
-                    <Input {...field}/>
+                    <Input {...field} />
                 </FormControl>
             </FormItem>
         )}
         />
         <div className="grid grid-cols-2 gap-3">
-            <FormField 
+        <FormField 
             control={form.control}
-            name={`workExperiences.${index}.startDate`}
+            name={`educations.${index}.startDate`}
             render={({field}) => (
                 <FormItem>
                     <FormLabel>Ngày bắt đầu</FormLabel>
@@ -108,7 +106,7 @@ function WorkExperienceItem({form, index, remove}: WorkExperienceItemProps) {
             />
             <FormField 
             control={form.control}
-            name={`workExperiences.${index}.endDate`}
+            name={`educations.${index}.endDate`}
             render={({field}) => (
                 <FormItem>
                     <FormLabel>Ngày kết thúc</FormLabel>
@@ -122,18 +120,6 @@ function WorkExperienceItem({form, index, remove}: WorkExperienceItemProps) {
             )}
             />
         </div>
-        <FormField 
-            control={form.control}
-            name={`workExperiences.${index}.description`}
-            render={({field}) => (
-                <FormItem>
-                    <FormLabel>Mô tả</FormLabel>
-                    <FormControl>
-                        <Textarea {...field}/>
-                    </FormControl>
-                </FormItem>
-            )}
-            />
         <Button type="button" variant="destructive" onClick={() => remove(index)} className="w-full">
             Xóa
         </Button>
