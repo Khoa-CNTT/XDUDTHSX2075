@@ -14,14 +14,6 @@ const form = useForm<GeneralInfoValues>({
         descrtipon: resumeData.descrtipon || "",
     }
 });
-useEffect(() => {
-    const { unsubscribe } = form.watch(async (values) => {
-      const isValid = form.trigger();
-      if (!isValid) return;
-      setResumeData({ ...resumeData, ...values });
-    });
-    return unsubscribe;
-  }, [form, resumeData, setResumeData]);
 
     return <div className="max-w-xl mx-auto space-y-6">
         <div className="space-y-1.5 text-center">
